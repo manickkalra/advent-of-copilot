@@ -20,7 +20,7 @@ for i, food_items in enumerate(elf_food):
         top_3_elf_calories.remove(lowest_calories)
         top_3_elf_calories.append(total_calories)
         # break
-    print(total_calories, top_3_elf_calories, sum(top_3_elf_calories))
+#     print(total_calories, top_3_elf_calories, sum(top_3_elf_calories))
 
-print(f"Elf {max_elf} is carrying the most calories: {max_calories}")
+# print(f"Elf {max_elf} is carrying the most calories: {max_calories}")
 print(f"Top 3 elves with the most calories: {sum(top_3_elf_calories)}")
