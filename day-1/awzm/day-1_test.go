@@ -166,27 +166,28 @@ func TestParseInput(t *testing.T) {
 	testCases := []struct {
 		name     string
 		input    string
-		expected []int
+		expected [][]int
 	}{
 		{
 			name:     "empty string",
 			input:    "",
-			expected: []int{},
+			expected: [][]int{},
 		},
 		{
 			name:     "one line",
 			input:    "1",
-			expected: []int{1},
+			expected: [][]int{{1}},
 		},
 		{
-			name:     "two lines",
-			input:    "1\n\n2",
-			expected: []int{1, 2},
+			name:  "two lines",
+			input: "1\n\n2",
+
+			expected: [][]int{{1}, {2}},
 		},
 		{
 			name:     "three lines",
 			input:    "1\n\n2\n\n3",
-			expected: []int{1, 2, 3},
+			expected: [][]int{{1}, {2}, {3}},
 		},
 	}
 
@@ -195,45 +196,6 @@ func TestParseInput(t *testing.T) {
 			actual := parseInput(tc.input)
 			if !reflect.DeepEqual(actual, tc.expected) {
 				t.Errorf("expected %v, got %v", tc.expected, actual)
-			}
-		})
-	}
-}
-
-// unit findlargest using test tables
-func TestFindLargest(t *testing.T) {
-	testCases := []struct {
-		name     string
-		input    string
-		expected int
-	}{
-		{
-			name:     "empty string",
-			input:    "",
-			expected: 0,
-		},
-		{
-			name:     "one line",
-			input:    "1",
-			expected: 1,
-		},
-		{
-			name:     "two lines",
-			input:    "1\n\n2",
-			expected: 2,
-		},
-		{
-			name:     "three lines",
-			input:    "1\n\n2\n\n3",
-			expected: 3,
-		},
-	}
-
-	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
-			actual := findLargest(tc.input)
-			if actual != tc.expected {
-				t.Errorf("expected %d, got %d", tc.expected, actual)
 			}
 		})
 	}

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -36,6 +37,11 @@ func parseEmptyLines(input string) []string {
 // parseNumbers uses strings.Split to parse a string into a int list
 // split by each new line
 func parseNumbers(input string) []int {
+	// guard against empty string input
+	if input == "" {
+		return []int{}
+	}
+
 	// parse input into a list of strings
 	lines := strings.Split(input, "\n")
 
@@ -59,6 +65,11 @@ func parseNumbers(input string) []int {
 // parseInput uses parseEmptyLines and parseNumbers to parse a string
 // into a list of int lists
 func parseInput(input string) [][]int {
+	// guard against empty string input
+	if input == "" {
+		return [][]int{}
+	}
+
 	// parse input into a list of strings
 	emptyLines := parseEmptyLines(input)
 
@@ -73,20 +84,26 @@ func parseInput(input string) [][]int {
 }
 
 func findLargest(input string) int {
+	// guard against empty string input
+	if input == "" {
+		return 0
+	}
 
 	parsed := parseInput(input)
 
-	largest := 0
-	for _, p := range parsed {
-		sum := sum(p)
+	// flatten parsed list
+	flatList := [][]int{}
+	flatList = append(flatList, parsed...)
 
-		// set largest to the greater between largest and sum
-		if sum > largest {
-			largest = sum
-		}
-	}
+	// sort the list in descending order
+	sort.Slice(flatList, func(i, j int) bool {
+		return sum(flatList[i]) > sum(flatList[j])
+	})
 
-	return largest
+	// get the sum of the first three elements (top three Elves)
+	sum := sum(flatList[0]) + sum(flatList[1]) + sum(flatList[2])
+
+	return sum
 }
 
 // read file and return the contents as a string
