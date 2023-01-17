@@ -1,11 +1,15 @@
 #  chat-gpt for all unless otherwise specified
 # used chat gpt to for day 1 part 1 advent of code challenge to find elf carrying the most calories
 from pathlib import Path
-input_str = Path('/Users/manickkalra/Projects/advent-of-code/advent-of-copilot/day-1/misk/input.txt').read_text()
+# write code that returns the current path and appends input.txt to the end
+# input = Path.cwd() + '/input.txt'
+input_file = Path.cwd() / 'input.txt'
+input_str = input_file.read_text()
 input_list = input_str.strip().split('\n\n')
 elf_food = [[int(x) for x in item.split('\n')] for item in input_list]
 max_calories = 0
 max_elf = None
+# manick wrote this
 top_3_elf_calories = [0,0,0]
 for i, food_items in enumerate(elf_food):
     total_calories = sum(food_items)
